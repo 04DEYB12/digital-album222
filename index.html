@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Digital Album</title>
+    <link rel="icon" type="image/png" href="Media/others/favicon.png">
+    <link href="./dist/output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <div class="flex flex-col items-center justify-center min-h-screen">
+        <img class="max-w-md mb-8 rounded-lg shadow-lg" src="Media/others/mochi-hello.gif" alt="Mochi Hello GIF">
+        <div class="text-center mb-8 px-4">
+            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-rose-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent animate-pulse">
+                Our Journey Together
+            </h1>
+            <p class="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto mb-4 leading-relaxed">
+                This digital space captures our precious moments, allowing us to revisit the beautiful memories we've created together.
+            </p>
+            <p class="text-lg md:text-xl text-gray-600 max-w-xl mx-auto italic font-medium">
+                Forever grateful for you ~bal💞
+            </p>
+        </div>
+        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+            Explore
+        </button>
+    </div>
+</body>
+
+<script>
+    document.querySelector('button').addEventListener('click', function() {
+        window.location.href = 'pages.html';
+    });
+</script>
+</html>

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Memories - Digital Album</title>
+    <link rel="icon" type="image/png" href="Media/others/favicon.png">
+    <link href="./dist/output.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm">
+        <div class="container mx-auto px-4 py-6">
+            <h1 class="text-3xl font-bold text-center bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent">
+                Memories We Shared Together
+            </h1>
+        </div>
+    </header>
+
+    <!-- Navigation Bar -->
+    <nav class="bg-white border-b sticky top-0 z-10">
+        <div class="container mx-auto px-4">
+            <div class="flex gap-2 py-4" style="overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: auto;">
+                <button onclick="loadPages(1)" class="px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors whitespace-nowrap">1st Month</button>
+                <button onclick="loadPages(2)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">2nd Month</button>
+                <button onclick="loadPages(3)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">3rd Month</button>
+                <button onclick="loadPages(4)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">4th Month</button>
+                <button onclick="loadPages(5)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">5th Month</button>
+                <button onclick="loadPages(6)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">6th Month</button>
+                <button onclick="loadPages(7)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">7th Month</button>
+                <button onclick="loadPages(8)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">8th Month</button>
+                <button onclick="loadPages(9)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">9th Month</button>
+                <button onclick="loadPages(10)" class="px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap">10th Month</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container mx-auto px-4 py-8">
+        <div class="text-center mb-8">
+            <h2 id="month-title" class="text-3xl md:text-4xl font-bold bg-gradient-to-r from-pink-500 to-purple-600 bg-clip-text text-transparent mb-2">
+                1st Monthsary
+            </h2>
+            <p class="text-gray-600 text-lg">Our first month together - memories that will last forever</p>
+        </div>
+        <div id="memory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            <!-- Sample Memory Card 1 -->
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+                <div class="aspect-square bg-gradient-to-br from-pink-200 to-purple-200"></div>
+                <div class="p-4">
+                    <h3 class="text-lg font-semibold text-gray-800 mb-2">Our First Date</h3>
+                    <p class="text-gray-600 text-sm mb-4">A beautiful memory we'll always cherish</p>
+                    <button class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors">
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Back to Home Button -->
+    <div class="fixed bottom-8 right-8">
+        <a href="index.html" class="bg-pink-500 hover:bg-pink-600 text-white font-bold py-3 px-6 rounded-full shadow-lg transition-colors">
+            ← Back to Home
+        </a>
+    </div>
+</body>
+
+<script>
+    function generateMemoryCards(month) {
+        const grid = document.getElementById('memory-grid');
+        const folderName = `${month}${getOrdinalSuffix(month)}-monthsary`;
+        const folderPath = `Media/${folderName}/`;
+        
+        // Clear existing content
+        grid.innerHTML = '';
+        
+        // Generate memory cards for images 1-53
+        for (let i = 1; i <= 53; i++) {
+            const card = document.createElement('div');
+            card.className = 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow';
+            
+            // Create gradient background as placeholder (replace with actual images)
+            const gradients = [
+                'from-pink-200 to-purple-200',
+                'from-blue-200 to-pink-200', 
+                'from-purple-200 to-blue-200',
+                'from-pink-200 to-yellow-200',
+                'from-green-200 to-blue-200',
+                'from-yellow-200 to-red-200'
+            ];
+            
+            card.innerHTML = `
+                <div class="aspect-square bg-gradient-to-br ${gradients[i % gradients.length]} relative">
+                    <img src="${folderPath}${i}.jpg" alt="" class="w-full h-full object-cover" 
+                         onerror="this.style.display='none'; this.parentElement.className+=' bg-gradient-to-br ${gradients[i % gradients.length]}';">
+                </div>
+                <div class="p-4">
+                    <button onclick="downloadImage('${folderPath}${i}.jpg')" 
+                            class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors">
+                        Download
+                    </button>
+                </div>
+            `;
+            
+            grid.appendChild(card);
+        }
+    }
+    
+    function downloadImage(imagePath) {
+        const link = document.createElement('a');
+        link.href = imagePath;
+        link.download = imagePath.split('/').pop();
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+
+    function getOrdinalSuffix(num) {
+        const j = num % 10;
+        const k = num % 100;
+        if (j === 1 && k !== 11) return 'st';
+        if (j === 2 && k !== 12) return 'nd';
+        if (j === 3 && k !== 13) return 'rd';
+        return 'th';
+    }
+
+    function loadPages(month) {
+        // Update title with proper ordinal suffix
+        const suffix = getOrdinalSuffix(month);
+        document.getElementById("month-title").textContent = `${month}${suffix} Monthsary`;
+        
+        // Update button styles - highlight active month
+        const buttons = document.querySelectorAll('nav button');
+        buttons.forEach((button, index) => {
+            if (index + 1 === month) {
+                button.className = 'px-4 py-2 bg-pink-500 text-white rounded-lg hover:bg-pink-600 transition-colors whitespace-nowrap';
+            } else {
+                button.className = 'px-4 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors whitespace-nowrap';
+            }
+        });
+        
+        // apply here - generate dynamic content
+        generateMemoryCards(month);
+        
+    }
+
+    // Initialize with 1st month on page load
+    document.addEventListener('DOMContentLoaded', () => {
+        loadPages(1);
+    });
+</script>
+
+</html>
