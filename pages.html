@@ -68,42 +68,68 @@
 
 <script>
     function generateMemoryCards(month) {
+        
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    
         const grid = document.getElementById('memory-grid');
         const folderName = `${month}${getOrdinalSuffix(month)}-monthsary`;
         const folderPath = `Media/${folderName}/`;
         
+        // Media configuration - media count for each month folder
+        const mediaConfig = {
+            images: [0, 53],  
+            videos: [0, 2]
+        };
+        
         // Clear existing content
         grid.innerHTML = '';
         
-        // Generate memory cards for images 1-53
-        for (let i = 1; i <= 53; i++) {
+        // Common gradient patterns
+        const gradients = [
+            'from-pink-200 to-purple-200',
+            'from-blue-200 to-pink-200', 
+            'from-purple-200 to-blue-200',
+            'from-pink-200 to-yellow-200',
+            'from-green-200 to-blue-200',
+            'from-yellow-200 to-red-200'
+        ];
+        
+        // Generate media cards function
+        function createMediaCard(type, index) {
             const card = document.createElement('div');
             card.className = 'bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow lazy-loading';
             
-            // Create gradient background as placeholder (replace with actual images)
-            const gradients = [
-                'from-pink-200 to-purple-200',
-                'from-blue-200 to-pink-200', 
-                'from-purple-200 to-blue-200',
-                'from-pink-200 to-yellow-200',
-                'from-green-200 to-blue-200',
-                'from-yellow-200 to-red-200'
-            ];
+            const mediaElement = type === 'image' 
+                ? `<img src="${folderPath}${index}.jpg" alt="" class="w-full h-full object-cover" 
+                     onerror="this.style.display='none'; this.parentElement.className+=' bg-gradient-to-br ${gradients[index % gradients.length]}';">`
+                : `<video src="${folderPath}vid${index}.mp4" controls class="w-full h-full object-cover" 
+                     onerror="this.style.display='none'; this.parentElement.className+=' bg-gradient-to-br ${gradients[index % gradients.length]}';">`;
+            
+            const downloadFile = type === 'image' ? `${index}.jpg` : `vid${index}.mp4`;
             
             card.innerHTML = `
-                <div class="aspect-square bg-gradient-to-br ${gradients[i % gradients.length]} relative">
-                    <img src="${folderPath}${i}.jpg" alt="" class="w-full h-full object-cover" 
-                         onerror="this.style.display='none'; this.parentElement.className+=' bg-gradient-to-br ${gradients[i % gradients.length]}';">
+                <div class="aspect-square bg-gradient-to-br ${gradients[index % gradients.length]} relative">
+                    ${mediaElement}
                 </div>
                 <div class="p-4">
-                    <button onclick="downloadImage('${folderPath}${i}.jpg')" 
+                    <button onclick="downloadImage('${folderPath}${downloadFile}')" 
                             class="w-full bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded transition-colors">
                         Download
                     </button>
                 </div>
             `;
             
-            grid.appendChild(card);
+            return card;
+        }
+        
+        // Generate image cards
+        for (let i = 1; i <= mediaConfig.images[month]; i++) {
+            grid.appendChild(createMediaCard('image', i));
+        }
+        
+        // Generate video cards
+        for (let i = 1; i <= mediaConfig.videos[month]; i++) {
+            grid.appendChild(createMediaCard('video', i));
         }
     }
     
