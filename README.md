@@ -21,6 +21,36 @@ A digital photo gallery built with Tailwind CSS.
 
 4. **Open `index.html` in your browser** to see the result.
 
+## Vercel Deployment
+
+This project is configured for easy deployment on Vercel:
+
+### Automatic Deployment
+1. Push your code to a Git repository (GitHub, GitLab, or Bitbucket)
+2. Connect your repository to Vercel
+3. Vercel will automatically detect the project configuration and deploy it
+
+### Manual Deployment
+1. Install the Vercel CLI:
+   ```bash
+   npm i -g vercel
+   ```
+2. Run the deployment command:
+   ```bash
+   vercel
+   ```
+3. Follow the prompts to deploy your project
+
+### Deployment Configuration
+- **Build Command**: `npm run vercel-build`
+- **Output Directory**: `dist`
+- **Install Command**: `npm install`
+
+The project includes a `vercel.json` configuration file that handles:
+- Build process automation
+- Static file caching
+- Proper routing for single-page application behavior
+
 ## Project Structure
 
 ```
