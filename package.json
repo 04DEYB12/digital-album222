@@ -4,9 +4,7 @@
   "description": "Digital album project with Tailwind CSS",
   "main": "index.js",
   "scripts": {
-    "build-css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch",
-    "build": "tailwindcss -i ./src/input.css -o ./dist/output.css",
-    "vercel-build": "npm run build"
+    "build-css": "tailwindcss -i ./src/input.css -o ./dist/output.css --watch"
   },
   "keywords": [],
   "author": "",
