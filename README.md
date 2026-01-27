@@ -21,27 +21,25 @@ A digital photo gallery built with Tailwind CSS.
 
 4. **Open `index.html` in your browser** to see the result.
 
-## Project Structure
-
-```
-digital-album/
-├── src/
-│   └── input.css          # Tailwind CSS input file
-├── dist/
-│   └── output.css         # Compiled CSS file
-├── index.html             # Main HTML file
-├── package.json           # Dependencies and scripts
-├── tailwind.config.js     # Tailwind configuration
-├── postcss.config.js      # PostCSS configuration
-└── README.md             # This file
-```
-
 ## Available Scripts
 
 - `npm run build` - Build CSS once
 - `npm run build-css` - Build CSS and watch for changes
 
-## Tailwind CSS Features Used
+## Landing Page
+
+- Welcome message
+- Navigation to user authentication page
+
+## User Authentication Page Features
+
+- Password protected access
+- Attempt tracking with lockout
+- Real-time countdown timer
+- Animated GIFs for each attempt
+- Responsive design
+
+## Digital Album Features
 
 - Responsive grid layout
 - Flexbox utilities

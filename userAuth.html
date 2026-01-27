@@ -7,79 +7,264 @@
     <link rel="icon" type="image/png" href="Media/others/favicon.png">
     <link href="./dist/output.css" rel="stylesheet">
 </head>
-<body class="min-h-screen bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 flex items-center justify-center px-4 sm:px-6 lg:px-8">
-    <div class="w-full max-w-sm sm:max-w-md">
-        <!-- Image container for GIF -->
-        <div class="flex justify-center mb-8">
-            <div class="relative">
-                <img src="Media/others/start.gif" alt="Authentication" class="w-24 h-24 sm:w-32 sm:h-32 object-cover rounded-2xl shadow-xl ring-4 ring-white/50 backdrop-blur-sm">
-                <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur opacity-25 animate-pulse"></div>
-            </div>
-        </div>
+<body class="min-h-screen bg-gradient-to-br from-pink-100 via-purple-100 to-indigo-100 flex items-center justify-center px-4 sm:px-6 lg:px-8">
+    <div class="w-full max-w-sm">
         
         <!-- Authentication container -->
-        <div class="bg-white/80 backdrop-blur-lg p-6 sm:p-8 rounded-2xl shadow-2xl border border-white/20">
+        <div class="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-3xl shadow-2xl border border-white/40 relative overflow-hidden">
+            <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-pink-400 via-purple-400 to-indigo-400"></div>
+            
+            <div id="attempt-message" class="text-center mb-4">
+                <div class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-pink-100 via-purple-100 to-indigo-100 rounded-full border-2 border-pink-200 shadow-lg">
+                    <div class="w-2 h-2 bg-pink-400 rounded-full mr-2 animate-pulse"></div>
+                    <p id="attempt-message-text" class="text-pink-700 text-sm font-semibold">You have 3 attempts to enter the correct password.</p>
+                    <div class="w-2 h-2 bg-purple-400 rounded-full ml-2 animate-pulse"></div>
+                </div>
+            </div>
+            
+            <div class="flex justify-center mb-6">
+                <div class="relative group">
+                    <div class="absolute -inset-1 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full blur opacity-25 group-hover:opacity-50 transition duration-300"></div>
+                    <img id="auth-gif" src="Media/others/start.gif" alt="Authentication" class="relative w-20 h-20 sm:w-24 sm:h-24 object-cover rounded-full shadow-2xl border-4 border-white/60 transition-transform duration-300 group-hover:scale-105">
+                    <div class="absolute -bottom-2 -right-2 w-6 h-6 bg-gradient-to-r from-pink-400 to-purple-400 rounded-full animate-pulse shadow-lg"></div>
+                </div>
+            </div>
+            
             <div class="text-center mb-6">
-                <h2 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent mb-2">
-                    Welcome Back
+                <h2 id="auth-title" class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 bg-clip-text text-transparent mb-2 drop-shadow-sm">
+                    Welcome Back 
                 </h2>
-                <p class="text-gray-600 text-sm sm:text-base">
-                    Enter your password to access your digital album
+                <p id="auth-subtitle" class="text-gray-600 text-sm sm:text-base font-medium">
+                    Enter your password to access our memories
                 </p>
             </div>
             
             <div class="space-y-4">
-                <div class="relative">
+                <div class="relative group">
+                    <div class="absolute -inset-0.5 bg-gradient-to-r from-pink-400 to-purple-400 rounded-2xl blur opacity-0 group-hover:opacity-30 transition duration-300"></div>
                     <input 
                         type="password" 
                         id="password" 
                         placeholder="Enter password"
-                        class="w-full px-4 py-3 sm:py-4 bg-gray-50/50 border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500/50 focus:border-blue-500 transition-all duration-200 text-gray-800 placeholder-gray-400"
+                        class="relative w-full px-4 py-3 sm:py-4 pr-12 bg-white/80 backdrop-blur-sm border-2 border-pink-200 rounded-2xl focus:outline-none focus:ring-4 focus:ring-pink-400/30 focus:border-pink-400 transition-all duration-300 text-gray-800 placeholder-gray-400 font-medium"
                         autocomplete="current-password"
                     >
-                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                        </svg>
+                    <div class="absolute inset-y-0 right-0 pr-3 flex items-center">
+                        <button 
+                            type="button" 
+                            id="toggle-password"
+                            onclick="togglePasswordVisibility()"
+                            class="text-pink-400 hover:text-pink-500 transition-colors duration-200 p-1"
+                        >
+                            <svg id="eye-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            </svg>
+                            <svg id="eye-slash-icon" class="w-6 h-6 hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
                 
                 <button 
+                    id="signin-btn"
                     onclick="authenticate()"
-                    class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 sm:py-4 px-4 rounded-xl hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-semibold text-base sm:text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
+                    class="relative w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-3 sm:py-4 px-4 rounded-2xl hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-bold text-base sm:text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.03] active:scale-[0.97] overflow-hidden group"
                 >
-                    Sign In
+                    <span class="relative z-10 flex items-center justify-center">
+                        Sign In 
+                        <span class="ml-2 inline-block transform group-hover:rotate-12 transition-transform duration-300">✨</span>
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
                 </button>
-            </div>
-            
-            <div id="error" class="mt-4 p-3 bg-red-50/50 border border-red-200 rounded-lg text-red-600 text-sm text-center hidden">
-                <span class="flex items-center justify-center">
-                    <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
-                        <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
-                    </svg>
-                    <span id="error-text"></span>
-                </span>
+                <button onclick="window.location.href='index.html'" class="relative w-full bg-gradient-to-r from-gray-100 to-gray-200 text-gray-600 py-2 px-4 rounded-xl hover:from-gray-200 hover:to-gray-300 transition-all duration-300 font-medium text-sm shadow-md hover:shadow-lg transform hover:scale-[1.02] active:scale-[0.98] overflow-hidden group">
+                    <span class="relative z-10 flex items-center justify-center">
+                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                        </svg>
+                        Back to Home
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/10 to-white/0 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-500"></div>
+                </button>
             </div>
         </div>
     </div>
 
+    <script src="password.js"></script>
     <script>
+        let failedAttempts = 0;
+        let lockoutUntil = null;
+        let countdownInterval = null;
+        const authTitleText = ['Welcome Back 💕', 'Wait! Try again', 'Grr! Remember it', 'Stop it!'];
+        let authTitle = document.getElementById('auth-title');
+        const authSubtitleText = ['Enter your password to access our memories', 'Come on, you can do this!', 'Think harder!', 'Okay, this is getting embarrassing...'];
+        let authSubtitle = document.getElementById('auth-subtitle');
+        
+        function updateAuthGif() {
+            const gifElement = document.getElementById('auth-gif');
+            
+            if (lockoutUntil && Date.now() < lockoutUntil) {
+                gifElement.src = 'Media/others/waiting.gif';
+                if (lockoutUntil && Date.now() < lockoutUntil) {
+                    document.getElementById('auth-title').textContent = "Uhm...";
+                    document.getElementById('auth-subtitle').textContent = "You're locked out for now, lets wait a bit...";
+                    document.getElementById('password').disabled = true;
+                    document.getElementById('signin-btn').disabled = true;
+                    document.getElementById('password').classList.add('opacity-50', 'cursor-not-allowed');
+                    document.getElementById('signin-btn').classList.add('opacity-50', 'cursor-not-allowed', 'hover:scale-100');
+                    
+                    // Start real-time countdown
+                    startCountdown();
+                }
+            } else {
+                // Stop countdown if not locked out
+                stopCountdown();
+                
+                if (failedAttempts === 0) {
+                    gifElement.src = 'Media/others/start.gif';
+                } else if (failedAttempts === 1) {
+                    gifElement.src = 'Media/others/1st attempt.gif';
+                    authTitle.textContent = authTitleText[failedAttempts];
+                    authSubtitle.textContent = authSubtitleText[failedAttempts];
+                } else if (failedAttempts === 2) {
+                    gifElement.src = 'Media/others/2nd attempt.gif';
+                    authTitle.textContent = authTitleText[failedAttempts];
+                    authSubtitle.textContent = authSubtitleText[failedAttempts];
+                } else if (failedAttempts >= 3) {
+                    gifElement.src = 'Media/others/last attempt.gif';
+                    authTitle.textContent = authTitleText[failedAttempts];
+                    authSubtitle.textContent = authSubtitleText[failedAttempts];
+                    lockoutUntil = Date.now() + 5 * 60 * 1000; // 5 minutes
+                    saveAuthState();
+                }
+                if (failedAttempts !== 0) {
+                    document.getElementById('attempt-message-text').textContent = `You have ${3 - failedAttempts} attempts left.`;
+                }
+            }
+        }
+        
+        function startCountdown() {
+            // Clear any existing interval
+            stopCountdown();
+            
+            // Update immediately
+            updateCountdownDisplay();
+            
+            // Update every second
+            countdownInterval = setInterval(updateCountdownDisplay, 1000);
+        }
+        
+        function stopCountdown() {
+            if (countdownInterval) {
+                clearInterval(countdownInterval);
+                countdownInterval = null;
+            }
+        }
+        
+        function updateCountdownDisplay() {
+            if (!lockoutUntil || Date.now() >= lockoutUntil) {
+                stopCountdown();
+                // Lockout expired, reset state
+                failedAttempts = 0;
+                lockoutUntil = null;
+                saveAuthState();
+                window.location.reload();
+                return;
+            }
+            
+            const remainingTime = Math.ceil((lockoutUntil - Date.now()) / 1000);
+            const minutes = Math.floor(remainingTime / 60);
+            const seconds = remainingTime % 60;
+            document.getElementById('attempt-message-text').textContent = `Too many failed attempts. Please try again in ${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        function saveAuthState() {
+            localStorage.setItem('authState', JSON.stringify({
+                failedAttempts,
+                lockoutUntil
+            }));
+        }
+        
+        function loadAuthState() {
+            const saved = localStorage.getItem('authState');
+            if (saved) {
+                const state = JSON.parse(saved);
+                failedAttempts = state.failedAttempts || 0;
+                lockoutUntil = state.lockoutUntil || null;
+                
+                // Reset if lockout has expired
+                if (lockoutUntil && Date.now() >= lockoutUntil) {
+                    failedAttempts = 0;
+                    lockoutUntil = null;
+                    saveAuthState();
+                    window.location.reload();
+                }
+            }
+            updateAuthGif();
+        }
+        
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const eyeIcon = document.getElementById('eye-icon');
+            const eyeSlashIcon = document.getElementById('eye-slash-icon');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                eyeIcon.classList.add('hidden');
+                eyeSlashIcon.classList.remove('hidden');
+            } else {
+                passwordInput.type = 'password';
+                eyeIcon.classList.remove('hidden');
+                eyeSlashIcon.classList.add('hidden');
+            }
+        }
+        
         function authenticate() {
+            
             const password = document.getElementById('password').value;
-            const errorDiv = document.getElementById('error');
-            const errorText = document.getElementById('error-text');
+            
+            if (!password) {
+                document.getElementById('auth-gif').src = 'Media/others/put-something-first.gif';
+                authTitle.textContent = "Hey!";
+                authSubtitle.textContent = "Put something first";
+                return;
+            }
             
             // Simple password check - you can change this password
-            const correctPassword = 'admin123';
+            const correctPassword = EntryPassword;
             
             if (password === correctPassword) {
+                // Reset on successful login
+                failedAttempts = 0;
+                lockoutUntil = null;
+                saveAuthState();
+                updateAuthGif();
+                
                 // Redirect to pages.html
                 window.location.href = 'pages.html';
             } else {
-                errorText.textContent = 'Incorrect password. Please try again.';
-                errorDiv.classList.remove('hidden');
+                failedAttempts++;
+                saveAuthState();
+                updateAuthGif();
+                
+                // Update title based on failed attempts
+                if (failedAttempts <= authTitleText.length - 1) {
+                    authTitle.textContent = authTitleText[failedAttempts];
+                    authSubtitle.textContent = authSubtitleText[failedAttempts];
+                }
+                
+                if (failedAttempts >= 3) {
+                    document.getElementById('attempt-message-text').textContent = "Too many failed attempts. Please try again in 5 minutes.";
+                    setTimeout(() => {
+                        window.location.reload();
+                    }, 5000);
+                } else {
+                    document.getElementById('attempt-message-text').textContent = `You have ${3 - failedAttempts} attempts left.`;
+                }
+                
                 document.getElementById('password').value = '';
-                document.getElementById('password').focus();
+                //document.getElementById('password').focus();
             }
         }
         
@@ -89,6 +274,9 @@
                 authenticate();
             }
         });
+        
+        // Load auth state on page load
+        document.addEventListener('DOMContentLoaded', loadAuthState);
         
     </script>
 </body>
