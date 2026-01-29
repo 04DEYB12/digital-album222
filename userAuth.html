@@ -91,8 +91,54 @@
         </div>
     </div>
 
-    <script src="password.js"></script>
     <script>
+        // Disable right-click context menu
+        document.addEventListener('contextmenu', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+        document.addEventListener('keydown', function(e) {
+            // F12
+            if (e.keyCode === 123) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+I (Chrome/Edge DevTools)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 73) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+J (Chrome Console)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 74) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+U (View Source)
+            if (e.ctrlKey && e.keyCode === 85) {
+                e.preventDefault();
+                return false;
+            }
+            // Ctrl+Shift+C (Element Inspector)
+            if (e.ctrlKey && e.shiftKey && e.keyCode === 67) {
+                e.preventDefault();
+                return false;
+            }
+        });
+        
+        // Disable text selection
+        document.addEventListener('selectstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
+        // Disable drag
+        document.addEventListener('dragstart', function(e) {
+            e.preventDefault();
+            return false;
+        });
+        
         let failedAttempts = 0;
         let lockoutUntil = null;
         let countdownInterval = null;
@@ -232,7 +278,7 @@
             }
             
             // Simple password check - you can change this password
-            const correctPassword = EntryPassword;
+            const correctPassword = "bal06122024";
             
             if (password === correctPassword) {
                 // Reset on successful login

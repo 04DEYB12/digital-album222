@@ -1,1 +1,0 @@
-const EntryPassword = "bal06122024";
