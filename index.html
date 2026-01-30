@@ -3,33 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Album</title>
+    <title>Digital Album - Our Journey Together</title>
     <link rel="icon" type="image/png" href="Media/others/favicon.png">
     <link href="./dist/output.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .hero-bg {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            position: relative;
+        }
+        
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3), transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(255, 119, 198, 0.3), transparent 50%);
+            pointer-events: none;
+        }
+        
+        .glass-card {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        }
+        
+        .text-gradient {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+            transform-origin: center;
+        }
+        
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent);
+            transition: left 0.6s;
+        }
+        
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 28px rgba(102, 126, 234, 0.35);
+        }
+        
+        .btn-primary:active {
+            transform: translateY(0) scale(0.98);
+            transition: all 0.1s;
+        }
+        
+        .image-container {
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            transition: transform 0.3s ease;
+        }
+        
+        .image-container:hover {
+            transform: scale(1.02);
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .heart-icon {
+            display: inline-block;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+    </style>
 </head>
-<body class="bg-gray-100 min-h-screen">
-    <div class="flex flex-col items-center justify-center min-h-screen">
-        <img class="max-w-md mb-8 rounded-lg shadow-lg" src="Media/others/mochi-hello.gif" alt="Mochi Hello GIF">
-        <div class="text-center mb-8 px-4">
-            <h1 class="text-5xl md:text-6xl font-extrabold mb-6 bg-gradient-to-r from-rose-400 via-purple-500 to-indigo-600 bg-clip-text text-transparent animate-pulse">
-                Our Journey Together
-            </h1>
-            <p class="text-xl md:text-2xl text-gray-700 max-w-2xl mx-auto mb-4 leading-relaxed">
-                This digital space captures our precious moments, allowing us to revisit the beautiful memories we've created together.
-            </p>
-            <p class="text-lg md:text-xl text-gray-600 max-w-xl mx-auto italic font-medium">
-                Forever grateful for you ~bal💞
-            </p>
-        </div>
-        <button class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
-            Explore
-        </button>
-    </div>
-</body>
+<body class="hero-bg min-h-screen">
+    <div class="flex flex-col items-center justify-center min-h-screen px-3 sm:px-4 py-4">
+        <div class="glass-card rounded-2xl p-6 sm:p-8 md:p-12 max-w-3xl fade-in">
+            
+            <!-- Hero Image -->
+            <div class="flex justify-center mb-6 sm:mb-8">
+                <div class="image-container">
+                    <img class="w-40 sm:w-48 md:w-64 lg:w-72 h-auto object-cover" src="Media/others/mochi-hello.gif" alt="Mochi Hello GIF">
+                </div>
+            </div>
 
-<script>
-    document.querySelector('button').addEventListener('click', function() {
-        window.location.href = 'userAuth.html';
-    });
-</script>
+            <!-- Text Content -->
+            <div class="text-center mb-6 sm:mb-8">
+                <h1 class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold mb-4 sm:mb-6 text-gradient leading-tight">
+                    Our Journey Together
+                </h1>
+                
+                <div class="space-y-3 sm:space-y-4">
+                    <p class="text-sm sm:text-base md:text-lg lg:text-xl text-gray-700 max-w-2xl mx-auto leading-relaxed px-2">
+                        Every moment with you is a treasure. This collection holds the story of us, forever captured in time.
+                    </p>
+                    <p class="text-xs sm:text-sm md:text-base lg:text-lg text-gray-600 max-w-xl mx-auto italic px-2">
+                        Our story continues... ~bal<span class="heart-icon"></span>💞</span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- CTA Button -->
+            <div class="flex justify-center px-2">
+                <button 
+                    id="exploreBtn"
+                    class="relative w-full bg-gradient-to-r from-pink-500 via-purple-500 to-indigo-500 text-white py-3 sm:py-4 px-3 sm:px-4 rounded-xl sm:rounded-2xl hover:from-pink-600 hover:via-purple-600 hover:to-indigo-600 transition-all duration-300 font-bold text-sm sm:text-base md:text-lg shadow-xl hover:shadow-2xl transform hover:scale-[1.02] sm:hover:scale-[1.03] active:scale-[0.97] overflow-hidden group"
+                >
+                    <span class="relative z-10 flex items-center justify-center">
+                        <span class="text-sm sm:text-base">Explore Our Memories</span>
+                        <span class="ml-1 sm:ml-2 inline-block transform group-hover:rotate-12 transition-transform duration-300 text-sm sm:text-base">✨</span>
+                    </span>
+                    <div class="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-700"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('exploreBtn').addEventListener('click', function() {
+            window.location.href = 'userAuth.html';
+        });
+    </script>
+</body>
 </html>
