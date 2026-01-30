@@ -287,7 +287,8 @@
                 saveAuthState();
                 updateAuthGif();
                 
-                // Redirect to pages.html
+                // Set authentication flag and redirect
+                sessionStorage.setItem('authenticated', 'true');
                 window.location.href = 'pages.html';
             } else {
                 failedAttempts++;
